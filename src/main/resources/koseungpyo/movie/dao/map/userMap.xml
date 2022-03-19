@@ -14,6 +14,18 @@
 		where user_id = #{userId} and pw = #{pw}
 	</select>
 	
+	<select id='checkUserId' resultType='user'>
+		select *
+		from users
+		where user_id = #{userId}
+	</select>
+	
+	<select id='findId' resultType='user'>
+		select *
+		from users
+		where user_name = #{userName} and phone_num = #{phoneNum}
+	</select>
+	
 	<insert id='insertUser'>
 		insert into users
 		values (user_number_seq.nextval, #{userId}, #{pw}, #{userName}, #{birthDate}, #{regDate}, #{email}, #{phoneNumber})

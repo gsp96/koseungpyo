@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import koseungpyo.movie.dao.UserDao;
 import koseungpyo.movie.domain.User;
+import koseungpyo.movie.domain.UserDTO;
 
 @Service("koseungpyo.service.user")
 public class UserServiceImpl implements UserService{
@@ -18,7 +19,7 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public void addUser(User user) {
+	public void addUser(UserDTO user) {
 		userDao.insertUser(user);
 	}
 
@@ -35,5 +36,21 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public User getUser(String userId, String pw) {
 		return userDao.selectUser(userId, pw);
+	}
+
+	@Override
+	public String overlapCheckId(String userId) {
+		User user = userDao.checkUserId(userId);
+		if(user != null) {
+			return user.getUserId();
+		}
+		else {
+			return "null";
+		}
+	}
+
+	@Override
+	public String findId(String userName, double phoneNum) {
+		return userDao.findId(userName, phoneNum);
 	}
 }

@@ -10,8 +10,72 @@
     <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.6.3/css/all.css'/>
     <link rel='stylesheet' href='../res/font.css'/>
 </head>
-<<script type="text/javascript">
-
+<script type="text/javascript">
+function regist() {
+	$('#check').click(() => {
+		$.ajax({
+			type:'post',
+			url:'/user/overlap',
+			data:{
+				userId: $('#userId').val()
+			}
+			}).done(result => {	
+				if(result == 'null'){
+					$('#modalMsg').empty();
+					$('#modalMsg').text('이 아이디는 사용할 수 있습니다.');
+					$('#overlapCheckModal').modal();
+				}
+				else{
+					$('#modalMsg').empty();
+					$('#modalMsg').text('중복된 아이디 입니다.');
+					$('#overlapCheckModal').modal();
+				}
+			}).fail(err => {
+				$('#modalMsg').empty();
+				$('#modalMsg').text('이 아이디는 사용할 수 있습니다.');
+				$('#overlapCheckModal').modal();
+			});
+	});
+	$('#submit').click(() => {
+		let errCnt = 0;
+		errCnt = sizeCheck('#userId', '#errmsg', 10, errCnt)
+		errCnt = sizeCheck('#userPw', '#errmsg2', 10, errCnt)
+		errCnt = sizeCheck('#userName', '#errmsg3', 15, errCnt)
+		errCnt = sizeCheck('#phoneNum', '#errmsg4', 11, errCnt)
+		errCnt = sizeCheck('#email', '#errmsg5',  40, errCnt)
+		if(errCnt == 0) {
+			$('#registModal').modal();
+		}
+	});
+	$('#registOkBtn').click(() => {
+		$.ajax({
+			type:'post',
+			url:'/user/userRegist',
+			data:{
+				userId: $('#userId').val(),
+				pw: $('#userPw').val(),
+				userName: $('#userName').val(),
+				phoneNum: $('#phoneNum').val(),
+				email: $('#email').val(),
+				birthDate: $('#birthDate').val()
+			}
+		}).done(result => {
+		})
+	});
+}
+function sizeCheck(name1, name2, size, errCnt) {
+	if(($(name1).val()) && ($(name1).val().length <= size)) {
+		$(name2).css('visibility','hidden');
+		console.log(name1, name2, errCnt);
+		return errCnt;
+	}
+	else {
+		$(name2).css('visibility', 'visible');
+		console.log(false);
+		return ++errCnt;
+	}
+}
+$(regist);
 </script>
 <style>
     @font-face {
@@ -69,21 +133,21 @@
         <div class="row mt-4" >
             <div class="col m-3">
                 <form method='post' action='#'>
-                    <input type='checkbox' id='user.02.ck_agree_terms' /> 이용약관<br>
+                    <input type='checkbox' id='user.01.ck_agree_terms' /> 이용약관<br>
                     <a href='#'>&nbsp;&nbsp;&nbsp;&nbsp;자세히 보기</a><br>
                     <input type='checkbox' id='user.02.ck_agree_terms' /> 개인정보 수집이용<br>
                     <a href='#'>&nbsp;&nbsp;&nbsp;&nbsp;자세히 보기</a><br>
                     <table class='table table-sm mt-4' id='user.02.table'>
                         <tbody>
-                            <tr><th style='background-color:rgb(184, 179, 179);'>아이디</th><td><input class='textbox' type='text' style="width:60%" placeholder='문자와 숫자를 혼합하여 10자 이내로 사용할 수 있습니다.'/><button class='btn btn-secondary' style='width:40%;'id='check' type='button' data-toggle='modal' data-target='#overlapCheckModal'>중복 확인</button><span id='errmsg'>5자이하의 이름을 입력해 주세요</span></td></tr>
-                            <tr><th style='background-color:rgb(184, 179, 179); white-space : nowrap;'>비밀번호</th><td><input class='textbox max' type='password' placeholder='띄어쓰기 없이 문자와 숫자를 혼합하여 20자 이내로 사용할 수 있습니다.'/><span id='errmsg2'>-없이 11자의 숫자를 입력해 주세요</span></td></tr>
-                            <tr><th style='background-color:rgb(184, 179, 179);'>이름</th><td><input class='textbox max' type='text' placeholder="5자 이내의 문자를 입력한다."/><span id='errmsg3'>-없이 11자의 숫자를 입력해 주세요</span></td></tr>
-                            <tr><th style='background-color:rgb(184, 179, 179);'>전화번호</th><td><input class='textbox max' type='number' placeholder='휴대전화(-없이)'/><span id='errmsg4'>-없이 11자의 숫자를 입력해 주세요</span></td></tr>
-                            <tr><th style='background-color:rgb(184, 179, 179);'>이메일</th><td><input class='textbox max' type='text' placeholder=''/><span id='errmsg5'>-없이 11자의 숫자를 입력해 주세요</span></td></tr>
-                            <tr><th style='background-color:rgb(184, 179, 179);'>생년월일</th><td><input class='date max' type='date' placeholder=''/><span id='errmsg5'>생년월일을 선택해 주세요</span></td></tr>
+                            <tr><th style='background-color:rgb(184, 179, 179);'>아이디</th><td><input class='textbox' type='text' id='userId' style="width:60%" placeholder='문자와 숫자를 혼합하여 10자 이내로 사용할 수 있습니다.'/><button class='btn btn-secondary' style='width:40%;'id='check' type='button' data-toggle='modal' data-target='#overlapCheckModal'>중복 확인</button><span id='errmsg'>5자이하의 이름을 입력해 주세요</span></td></tr>
+                            <tr><th style='background-color:rgb(184, 179, 179); white-space : nowrap;'>비밀번호</th><td><input id='userPw' class='textbox max' type='password' placeholder='띄어쓰기 없이 문자와 숫자를 혼합하여 20자 이내로 사용할 수 있습니다.'/><span id='errmsg2'>10자 이내의 문자만 사용가능합니다.</span></td></tr>
+                            <tr><th style='background-color:rgb(184, 179, 179);'>이름</th><td><input class='textbox max' id='userName' type='text' placeholder="5자 이내의 문자를 입력한다."/><span id='errmsg3'>7자 이내의 한글로 작성하여 주세요</span></td></tr>
+                            <tr><th style='background-color:rgb(184, 179, 179);'>전화번호</th><td><input class='textbox max' id='phoneNum' type='number' placeholder='휴대전화(-없이)'/><span id='errmsg4'>-없이 11자의 숫자를 입력해 주세요</span></td></tr>
+                            <tr><th style='background-color:rgb(184, 179, 179);'>이메일</th><td><input class='textbox max' id='email' type='text' placeholder=''/><span id='errmsg5'>@를 포함해 이메일을 작성해 주세요</span></td></tr>
+                            <tr><th style='background-color:rgb(184, 179, 179);'>생년월일</th><td><input class='date max' id='birthDate' type='date' placeholder=''/><span id='errmsg5'>생년월일을 선택해 주세요</span></td></tr>
                         </tbody>
                     </table>
-                    <button id='submit' type='button' class='btn-secondary' data-toggle='modal' data-target='#registModal'>회원가입</button>
+                    <button id='submit' type='button' class='btn-secondary'>회원가입</button>
                     <!--버튼에 type을지정하지 않으면 submit으로서 사용된다.-->
                 </form>
             </div>
@@ -99,7 +163,7 @@
 				</button>
 			</div>
 			<div class='modal-body'>
-				<p>중복되지 않은 아이디 입니다.</p>
+				<p id='modalMsg'>중복되지 않은 아이디 입니다.</p>
 			</div>
 			<div class='modal-footer'>
 				<button type='button' class='btn btn-secondary' data-dismiss='modal'>확인</button>
@@ -119,7 +183,7 @@
 				<p>회원가입이 완료되었습니다.</p>
 			</div>
 			<div class='modal-footer'>
-				<button type='button' class='btn btn-secondary' data-dismiss='modal' onclick="location.href='01.html' ">확인</button>
+				<button id='registOkBtn' type='button' class='btn btn-secondary' data-dismiss='modal' onclick="location.href='loginView' ">확인</button>
 			</div>
 		</div>
 	</div>

@@ -1,6 +1,6 @@
 <head>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-    <title>login</title>
+    <title>아이디 찾기</title>
     <meta charset='utf-8'>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
@@ -11,52 +11,24 @@
     <link rel='stylesheet' href='../res/font.css'/>
 </head>
 <style>
-  footer{
+    #errmsg {
+        color:red;
+        visibility: hidden;
+    }
+    #errmsg2 {
+        color:red;
+        visibility: hidden;
+    }
+    footer{
         background-color: rgb(225, 225, 225);
         padding-top: 2rem;
         padding-bottom: 2rem;
     }
 </style>
-<script>
-function login() {
-	$('#loginBtn').click(() => {
-		if(!$('#userId').val()) {
-			$('#errMsg').empty();
-			$('#errMsg').text('아이디를 입력해주세요.');
-			$('#loginCheckModal').modal();
-		}
-		if(!$('#userPw').val()) {
-			$('#errMsg').empty();
-			$('#errMsg').text('비밀번호를 입력해주세요.');
-			$('#loginCheckModal').modal();
-		}
-	$.ajax({
-		type:'post',
-		url:'/user/login',
-		data:{
-			userId: $('#userId').val(),
-			userPw: $('#userPw').val(),
-			idRemember: $('#idRemember:checked').val()
-		}
-		}).done(result => {		
-			location.href='/cinemanetwork';
-		}).fail(err => {
-			$('#errMsg').empty();
-			$('#errMsg').text('아이디 또는 비밀번호를 확인해주세요.');
-			$('#loginCheckModal').modal();
-		});
-	});
-	$('#modalYes').click(() => {
-		$('#loginCheckModal').modal('hide');
-	});
-}
-
-$(login);
-</script>
 <body>
     <header id='header'>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-                <div class='mx-auto border'><a class="navbar-brand" href='../main.html'>로고 이미지</a></div>
+            <div class='p-4 border'><a href='../main.html'>로고 이미지</a></div>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
@@ -64,19 +36,16 @@ $(login);
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                  <a class="nav-link" href="#">영화</a>
+                  <a class="nav-link" href="../movie/01.html">영화 <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     추천
                   </a>
                   <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="#">주제별</a>
+                    <a class="dropdown-item" href="../recommendation/01.html">장르별</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">장르별</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">평점별</a>
-                    
+                    <a class="dropdown-item" href="../recommendation/02.html">평점별</a>
                   </div>
                 </li>
                 <li class="nav-item">
@@ -84,7 +53,7 @@ $(login);
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="../inquiry/01.html">고객센터</a>
-                  </li>
+                  </li>                
                 <li class="nav-item">
                     <a class="nav-link" href="../user/01.html">로그인</a>
                   </li>
@@ -96,58 +65,41 @@ $(login);
             </div>
           </nav>
     </header>
+
     <div class='container'>
-        <div class='row'>
-            <div class='col' style='float: none; margin:100 auto; text-align: center;'>
-                <a class='navbar-brand' href='#'>
-                    <div class='border'>
-                     	 로고 이미지
-                    </div>
-                </a>
+        <div class='row text-center mt-5'>
+            <div class='col m-5'>
+                <h2><u>아이디 찾기</u></h2>
             </div>
         </div>
-        <div class='row'>
-            <div class='col' style='text-align: center;'>
-                <form method='post' id='loginForm'>
-                    <input type='text' name='userId' id='userId' placeholder='아이디'/><br><br>
-                    <input type='password' name='userPw' id='userPw' placeholder='비밀번호'/><br><br>
-                    <label><input type='checkbox' name='idRemember' id='idRemember' /> ID 기억하기</label><br>
-                    <!--<input type='submit' value='로그인'/>-->
-                    <button type="button" class="btn btn-secondary" id='loginBtn'>로그인</button>
+        <hr style='border: solid 1px black;'>
+        <div class='row mt-10'>
+            <div class='col'>
+                <form method='post' action='#'>
+                    <input type='textbox' style='width: 100%;' class='textbox'placeholder='이름'/><br>
+                    <span id='errmsg'>5자이하의 이름을 입력해 주세요</span>
+                    <input type='number' style='width: 100%;' placeholder='휴대전화(-없이)'/>
+                    <span id='errmsg2'>-없이 11자의 숫자를 입력해 주세요</span><br>                    
                 </form>
-                <a href='/user/findId' >아이디 찾기</a>
-                <a href='../user/05.html' >비밀번호 찾기</a>
             </div>
         </div>
         <div class='row'>
-            <div class='col text-center' style='float: none; margin:100 auto;'>
-                <button class='btn btn-secondary' type='button' id='btn_register' onclick="location.href='userRegist' ">회원 가입</button>
-            </div>
+          <div class='col-3'>
+
+          </div>
+          <div class='col-3'>
+            <button type='submit' class='btn btn-secondary' onclick="location.href='04.html' ">확인</button>
+          </div>
+          <div class='col-3'>
+            <button type='button' class='btn btn-secondary' onclick="location.href='01.html' ">취소</button>
+          </div>
         </div>
     </div>
 </body>
 
-<div id='loginCheckModal' class='modal fade' tabindex='-1'>
-	<div class='modal-dialog'>
-		<div class='modal-content'>
-			<div class='modal-header'>
-				<button type='button' class='close' data-dismiss='modal'>
-					<span>&times;</span>
-				</button>
-			</div>
-			<div class='modal-body'>
-				<p id='errMsg'></p>
-			</div>
-			<div class='modal-footer'>
-				<button type='button' class='btn btn-primary' data-dismiss='modal' id='modalYes'>확인</button>
-			</div>
-		</div>
-	</div>
-</div>
-
 <footer>
-  <div class='row' style='float: none; margin:100 auto; text-align: center;'>
-      <div class='col'>
+  <div class='row mt-5' style='float: none; margin:100 auto; text-align: center;'>
+      <div class='col-md-10'>
           <p class=''>문의 : <a href="https://https://is.ezenac.co.kr/" data-toggle='tooltip'>https://is.ezenac.co.kr/</a> </p>
           <p class='text'>
               사업장주소 : 경기도 고양시 일산동구 장항동 890-4 마두법조빌딩 9F 10414 호스팅서비스사업자 : 이젠컴퓨터학원(주) 대표번호 : 031-994-8881 개발 문의 : 1577-0000 영화 문의 : 1588-1111</p>

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import koseungpyo.movie.dao.map.UserMap;
 import koseungpyo.movie.domain.User;
+import koseungpyo.movie.domain.UserDTO;
 
 @Repository
 public class UserDaoImpl implements UserDao{
@@ -18,7 +19,7 @@ public class UserDaoImpl implements UserDao{
 	}
 
 	@Override
-	public void insertUser(User user) {
+	public void insertUser(UserDTO user) {
 		userMap.insertUser(user);
 	}
 
@@ -35,5 +36,16 @@ public class UserDaoImpl implements UserDao{
 	@Override
 	public User selectUser(String userId, String pw) {
 		return userMap.selectUser(userId, pw);
+	}
+
+	@Override
+	public User checkUserId(String userId) {
+		return userMap.checkUserId(userId);
+	}
+
+	@Override
+	public String findId(String userName, double phoneNum) {
+		User user = userMap.findId(userName, phoneNum);
+		return user.getUserId();
 	}
 }
