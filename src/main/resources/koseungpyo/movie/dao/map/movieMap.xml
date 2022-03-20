@@ -6,6 +6,7 @@
 		select *
 		from movies
 		order by movie_num
+		where genre = #{genre}
 	</select>
 	
 	<select id='selectMovie' resultType='movie'>
@@ -13,6 +14,18 @@
 		from movies
 		where movie_num = #{movieNum}
 	</select>
+	
+	<select id='selectMovies' resultType='movie'>
+      select *
+      from movies
+      where opening_date = #{openingDate}
+   	</select>
+	
+	<select id='listMovies' resultType='movie'>
+      select *
+      from movies
+      where genre = #{genre} or opening_date = #{openingDate}
+   	</select>
 	
 	<insert id='insertMovie'>
 		insert into movies

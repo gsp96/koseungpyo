@@ -36,4 +36,10 @@ public class MovieDaoImpl implements MovieDao{
 	public void deleteMovie(int movieNum) {
 		moviemap.deleteMovie(movieNum);
 	}
+
+	@Override
+	public List<Movie> listMovies() {
+		return moviemap.listMovies();
+	}
+	
 }

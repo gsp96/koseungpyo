@@ -20,10 +20,10 @@
 		where user_id = #{userId}
 	</select>
 	
-	<select id='findId' resultType='user'>
-		select *
+	<select id='findId' resultType='string'>
+		select NVL(user_id,'noId')
 		from users
-		where user_name = #{userName} and phone_num = #{phoneNum}
+		where user_name = #{userName} and phone_number = #{phoneNum}
 	</select>
 	
 	<insert id='insertUser'>

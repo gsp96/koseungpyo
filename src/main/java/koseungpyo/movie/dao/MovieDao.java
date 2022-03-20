@@ -10,4 +10,6 @@ public interface MovieDao {
 	void insertMovie(Movie movie);
 	void updateMovie(Movie movie);
 	void deleteMovie(int movieNum);
+	List<Movie> listMovies();
+	
 }

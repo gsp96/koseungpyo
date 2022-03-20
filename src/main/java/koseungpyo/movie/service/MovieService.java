@@ -10,4 +10,6 @@ public interface MovieService {
 	void addMovie(Movie movie);
 	void fixMovie(Movie movie);
 	void delMovie(int movieNum);
+	List<Movie> listMovies();
+	
 }
