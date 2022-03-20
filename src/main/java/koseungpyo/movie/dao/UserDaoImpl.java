@@ -45,7 +45,10 @@ public class UserDaoImpl implements UserDao{
 
 	@Override
 	public String findId(String userName, double phoneNum) {
-		User user = userMap.findId(userName, phoneNum);
-		return user.getUserId();
+		String userId = userMap.findId(userName, phoneNum);
+		if(userId == " ") {
+			userId = "noId";
+		}
+		return userId;
 	}
 }

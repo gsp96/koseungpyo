@@ -66,7 +66,17 @@ public class UserController {
 	}
 	
 	@PostMapping("findId")
-	public String findId(@RequestParam("userName") String userName, @RequestParam("phoneNum") double phoneNum) {
+	public String findId(@RequestParam("userName") String userName, @RequestParam("phoneNum") double phoneNum, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		session.setAttribute("userId", userService.findId(userName, phoneNum));
 		return userService.findId(userName, phoneNum);
+	}
+	
+	@GetMapping("findIdResult")
+	public ModelAndView findIdResult(ModelAndView mv, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		session.getAttribute("userId");
+		mv.setViewName("user/findIdResult");
+		return mv;
 	}
 }
