@@ -47,14 +47,14 @@
         }
     }
     
-    function listLaborers() {
+    function listMovies() {
     	   $('input').val('')
     	   $('#movies').empty()
     	   
     	   $.ajax({
     	      url: 'movie/list'
     	   }).done(movies => {
-    	      if(movies.length) { 
+    	      if(movies.length) {
     	            const movieArr = []
     	   
     	            $.each(movies, (i, movie) => {
@@ -209,32 +209,32 @@
                                     th:text="${action}">액션
                             </option>
                             <option th:each="genre : ${T(com.frontbackend.thymeleaf.bootstrap.model.genre).values()}"
-                                    th:value="${genre}"
+                                    th:value="${romance}"
                                     th:text="${genre}">로맨스
                             </option>
                             <option th:each="genre : ${T(com.frontbackend.thymeleaf.bootstrap.model.genre).values()}"
-                                    th:value="${genre}"
-                                    th:text="${genre}">가족
+                                    th:value="${family}"
+                                    th:text="${family}">가족
                             </option>
                             <option th:each="genre : ${T(com.frontbackend.thymeleaf.bootstrap.model.genre).values()}"
-                                    th:value="${genre}"
-                                    th:text="${genre}">드라마
+                                    th:value="${drama}"
+                                    th:text="${drama}">드라마
                             </option>
                             <option th:each="genre : ${T(com.frontbackend.thymeleaf.bootstrap.model.genre).values()}"
-                                    th:value="${genre}"
-                                    th:text="${genre}">코미디
+                                    th:value="${comedy}"
+                                    th:text="${comedy}">코미디
                             </option>
                             <option th:each="genre : ${T(com.frontbackend.thymeleaf.bootstrap.model.genre).values()}"
-                                    th:value="${genre}"
-                                    th:text="${genre}">SF
+                                    th:value="${sf}"
+                                    th:text="${sf}">SF
                             </option>
                             <option th:each="genre : ${T(com.frontbackend.thymeleaf.bootstrap.model.genre).values()}"
-                                    th:value="${genre}"
-                                    th:text="${genre}">호러
+                                    th:value="${horror}"
+                                    th:text="${horror}">호러
                             </option>
                             <option th:each="genre : ${T(com.frontbackend.thymeleaf.bootstrap.model.genre).values()}"
-                                    th:value="${genre}"
-                                    th:text="${genre}">판타지
+                                    th:value="${Fantasy}"
+                                    th:text="${Fantasy}">판타지
                             </option>
                         </select>
                     </div>    
