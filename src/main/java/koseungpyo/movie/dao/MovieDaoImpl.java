@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import koseungpyo.movie.dao.map.MovieMap;
 import koseungpyo.movie.domain.Movie;
+import koseungpyo.movie.domain.MovieDTO;
 
 @Repository("koseungpyo.dao.movie")
 public class MovieDaoImpl implements MovieDao{
@@ -23,7 +24,7 @@ public class MovieDaoImpl implements MovieDao{
 	}
 
 	@Override
-	public void insertMovie(Movie movie) {
+	public void insertMovie(MovieDTO movie) {
 		moviemap.insertMovie(movie);
 	}
 

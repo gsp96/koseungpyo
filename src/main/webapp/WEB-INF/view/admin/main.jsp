@@ -35,7 +35,7 @@
                 <div class='btn-group btn-block'>
                     <button type="button" class="btn btn-secondary" onclick="location.href='admin/user' ">회원</button>
                     <button type="button" class="btn btn-secondary" onclick="location.href='community/01.html' ">커뮤니티</button>
-                    <button type="button" class="btn btn-secondary" onclick="location.href='movie/01.html' ">영화</button>
+                    <button type="button" class="btn btn-secondary" onclick="location.href='admin/movieInfoList' ">영화</button>
                     <button type="button" class="btn btn-secondary" onclick="location.href='inquiry/01.html' ">문의</button>
                     <button type="button" class="btn btn-secondary" onclick="location.href='review/01.html' ">후기</button>
                 </div>

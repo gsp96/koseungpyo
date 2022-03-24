@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import koseungpyo.movie.dao.MovieDao;
 import koseungpyo.movie.domain.Movie;
+import koseungpyo.movie.domain.MovieDTO;
 
 
 @Service("koseungpyo.service.movie")
@@ -24,7 +25,7 @@ public class MovieServiceImpl implements MovieService{
 	}
 
 	@Override
-	public void addMovie(Movie movie) {
+	public void addMovie(MovieDTO movie) {
 		movieDao.insertMovie(movie);
 	}
 
