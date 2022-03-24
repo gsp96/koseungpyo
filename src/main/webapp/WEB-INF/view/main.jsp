@@ -118,7 +118,7 @@ $(() => {
         padding-bottom: 2rem;
     }
     h6{
-        color : rgb(255, 193, 7);
+        color : #096191;
     }
 </style>
 <div style='position:fixed; bottom:20px;right:10px;'>
@@ -135,7 +135,7 @@ $(() => {
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                  <a class="nav-link" href="movie/01.html">영화</a>
+                  <a class="nav-link" href="../movie/movieList">영화</a>
                 </li>
                 <li class="nav-item dropdown active">
                   <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -179,13 +179,13 @@ $(() => {
             <div class='col-12'>
                 <ul class="nav nav-tabs nav-fill" id='nav2'>
                     <li class="nav-item">
-                    <a class="nav-link" href="recommendation/03.html"><span style="text-shadow:2px 2px 2px #000;"><h6>오늘의 추천</h6></span></a>
+                    <a class="nav-link" href="recommendation/03.html"><span><h6>오늘의 추천</h6></span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="movie/01.html"><span style="text-shadow:2px 2px 2px #000;"><h6>영화</h6></span></a>
+                        <a class="nav-link" href="movie/movieList"><span><h6>영화</h6></span></a>
                     </li>
                     <li class="nav-item">
-                    <a class="nav-link" href="community/01.html"><span style="text-shadow:2px 2px 2px #000;"><h6>커뮤니티</h6></span></a>
+                    <a class="nav-link" href="community/01.html"><span><h6>커뮤니티</h6></span></a>
                     </li>
                 </ul>
             </div>

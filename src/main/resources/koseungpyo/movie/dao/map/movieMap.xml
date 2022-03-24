@@ -15,12 +15,6 @@
 		where movie_num = #{movieNum}
 	</select>
 	
-	<select id='selectMovies' resultType='movie'>
-      select *
-      from movies
-      where opening_date = #{openingDate}
-   	</select>
-	
 	<select id='listMovies' resultType='movie'>
       select *
       from movies
