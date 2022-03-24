@@ -46,7 +46,7 @@
         $("#day").append("<option value='" + i + "'>" + i + " 일" + "</option>");
         }
     }
-    
+    <!--
     function listMovies() {
     	   $('input').val('')
     	   $('#movies').empty()
@@ -70,7 +70,8 @@
     	         } else $('#movies').append(
     	               '<tr><td colspan=4 class=text-center>영화가 없습니다.</td></tr>')
     	   })
-    	}
+    	} 
+    -->
 </script>
 <style>
     @font-face {
@@ -175,7 +176,7 @@
                     <a class="nav-link" href="../recommendation/03.html"><span><h6>오늘의 추천</h6></span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="../movie/01.html"><span><h6>영화</h6></span></a>
+                        <a class="nav-link active" href="../movie/genreList"><span><h6>영화</h6></span></a>
                     </li>
                     <li class="nav-item">
                     <a class="nav-link" href="../board/01.html"><span><h6>게시판</h6></span></a>
@@ -189,7 +190,7 @@
         <div class='row'>
             <div class='col-12 text-center'>
                 <div class='btn-group btn-block'>
-                    <button type="button" class="btn btn-secondary active" onclick="location.href='../movie/01.html' ">장르</button>
+                    <button type="button" class="btn btn-secondary active" onclick="location.href='../movie/movieList' ">장르</button>
                     <button type="button" class="btn btn-secondary" onclick="location.href='../movie/02.html' ">연도별</button>
                     <button type="button" class="btn btn-secondary" onclick="location.href='../movie/03.html' ">관객수별</button>
                 </div>
@@ -198,47 +199,22 @@
 
         <div class="row mr-auto">
             <div class="col-md-4 mt-5" style="float: none; margin:0 auto;">
-                <form method="post" th:object="${order}">
-    
+                <form method="post">    
                     <div class="form-group">
                         <label for="genres">장르</label>
-                        <select class="form-control selectpicker" th:field="*{genre}" id="genre">
+                        <select class="form-control selectpicker" id="genre">
                             <option value="">전체</option>
-                            <option th:each="action : ${T(com.frontbackend.thymeleaf.bootstrap.model.genre).values()}"
-                                    th:value="${action}"
-                                    th:text="${action}">액션
-                            </option>
-                            <option th:each="genre : ${T(com.frontbackend.thymeleaf.bootstrap.model.genre).values()}"
-                                    th:value="${romance}"
-                                    th:text="${genre}">로맨스
-                            </option>
-                            <option th:each="genre : ${T(com.frontbackend.thymeleaf.bootstrap.model.genre).values()}"
-                                    th:value="${family}"
-                                    th:text="${family}">가족
-                            </option>
-                            <option th:each="genre : ${T(com.frontbackend.thymeleaf.bootstrap.model.genre).values()}"
-                                    th:value="${drama}"
-                                    th:text="${drama}">드라마
-                            </option>
-                            <option th:each="genre : ${T(com.frontbackend.thymeleaf.bootstrap.model.genre).values()}"
-                                    th:value="${comedy}"
-                                    th:text="${comedy}">코미디
-                            </option>
-                            <option th:each="genre : ${T(com.frontbackend.thymeleaf.bootstrap.model.genre).values()}"
-                                    th:value="${sf}"
-                                    th:text="${sf}">SF
-                            </option>
-                            <option th:each="genre : ${T(com.frontbackend.thymeleaf.bootstrap.model.genre).values()}"
-                                    th:value="${horror}"
-                                    th:text="${horror}">호러
-                            </option>
-                            <option th:each="genre : ${T(com.frontbackend.thymeleaf.bootstrap.model.genre).values()}"
-                                    th:value="${Fantasy}"
-                                    th:text="${Fantasy}">판타지
-                            </option>
+                            <option value="">액션</option>
+                            <option value="">로맨스</option>
+                            <option value="">가족</option>
+                            <option value="">드라마</option>
+                            <option value="">코미디</option>
+                            <option value="">SF</option>
+                            <option value="">호러</option>
+                            <option value="">판타지</option>
                         </select>
                     </div>    
-                    <button class="btn btn-primary" type="submit">영화 조회</button>
+                    <button class="btn btn-secondary" type="submit">영화 조회</button>
                 </form>
             </div>
         </div>
