@@ -51,4 +51,13 @@ public class UserDaoImpl implements UserDao{
 		}
 		return userId;
 	}
+
+	@Override
+	public String findPw(String userId, double phoneNum) {
+		String email = userMap.findPw(userId, phoneNum);
+		if(email == " ") {
+			email = "noEmail";
+		}
+		return email;
+	}
 }

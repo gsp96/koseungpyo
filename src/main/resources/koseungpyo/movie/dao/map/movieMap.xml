@@ -8,6 +8,12 @@
 		order by movie_num
 	</select>
 	
+	<select id='listMovies' resultType='movie'>
+		select *
+		from movies
+		where genre = #{genre} and opening_date = #{openingDate}
+	</select>
+	
 	<select id='selectMovie' resultType='movie'>
 		select *
 		from movies

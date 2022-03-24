@@ -30,15 +30,15 @@
 
 function checkLogin() {
 	var ssuserId = "<%=(String)session.getAttribute("userId")%>"
-	if(checkParams('admin') && checkParams('admin')) {
+	if(( ssuserId == "admin") && (ssuserId.length > 0)) {
 		$('.login').toggle()
-        $('.admin').prepend('<li class="nav-item"><a href="admin/main.html">관리자 페이지</a></li>')
-		$('.logout').prepend('<li class="nav-item"><a href="main.html" >로그아웃</a></li>')
+        $('.admin').prepend('<li class="nav-item"><a href="admin">관리자 페이지</a></li>')
+		$('.logout').prepend('<li class="nav-item"><a href="cinemanetwork" >로그아웃</a></li>')
         $('.admin').toggle()
 		$('.logout').toggle()
 	} 
 	console.log(ssuserId)
-     if(( ssuserId != "null") && (ssuserId.length > 0)) {
+    else if(( ssuserId != "null") && (ssuserId.length > 0)) {
 	 	$('.login').toggle()
 	 	$('.logout').prepend('<li class="nav-item"><a href="cinemanetwork" >로그아웃</a></li>')
         $('.mypage').prepend('<li class="nav-item"><a href="user/07.html" >마이페이지</a></li>')

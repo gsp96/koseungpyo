@@ -26,6 +26,12 @@
 		where user_name = #{userName} and phone_number = #{phoneNum}
 	</select>
 	
+	<select id='findPw' resultType='string'>
+		select NVL(email,'noEmail')
+		from users
+		where user_id = #{userId} and phone_number = #{phoneNum}
+	</select>
+	
 	<insert id='insertUser'>
 		insert into users
 		values (user_number_seq.nextval, #{userId}, #{pw}, #{userName}, #{birthDate}, #{regDate}, #{email}, #{phoneNumber})

@@ -79,4 +79,25 @@ public class UserController {
 		mv.setViewName("user/findIdResult");
 		return mv;
 	}
+	
+	@GetMapping("findPw")
+	public ModelAndView findPw(ModelAndView mv) {
+		mv.setViewName("user/findPw");
+		return mv;
+	}
+	
+	@PostMapping("findPw")
+	public String findPw(@RequestParam("userId") String userId, @RequestParam("phoneNum") double phoneNum, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		session.setAttribute("email", userService.findPw(userId, phoneNum));
+		return userService.findPw(userId, phoneNum);
+	}
+	
+	@GetMapping("findPwResult")
+	public ModelAndView findPwResult(ModelAndView mv, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		session.getAttribute("email");
+		mv.setViewName("user/findPwResult");
+		return mv;
+	}
 }

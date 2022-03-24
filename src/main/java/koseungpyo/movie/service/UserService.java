@@ -15,4 +15,5 @@ public interface UserService {
 	void delUser(int userNum);
 	String overlapCheckId(@Param("userId") String userId);
 	String findId(String userName, double phoneNum);
+	String findPw(String userId, double phoneNum);
 }

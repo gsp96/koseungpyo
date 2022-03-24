@@ -15,4 +15,5 @@ public interface UserMap {
 	void deleteUser(int userNum);
 	User checkUserId(@Param("userId") String userId);
 	String findId(@Param("userName") String userName, @Param("phoneNum") double phoneNum);
+	String findPw(@Param("userId") String userId, @Param("phoneNum") double phoneNum);
 }
