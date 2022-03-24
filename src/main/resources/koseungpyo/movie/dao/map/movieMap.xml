@@ -21,13 +21,13 @@
 		where movie_num = #{movieNum}
 	</select>
 	
-	<select id='selectMovies' resultType='movie'>
+	<select id='selectMovies2' resultType='movie'>
       select *
       from movies
       where opening_date = #{openingDate}
    	</select>
 	
-	<select id='listMovies' resultType='movie'>
+	<select id='listMovies2' resultType='movie'>
       select *
       from movies
       where genre = #{genre}
