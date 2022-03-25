@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import koseungpyo.movie.domain.MovieDTO;
@@ -50,7 +51,7 @@ public class AdminController {
 	public void movieRegist(@RequestParam("title") String title, 
 		@RequestParam("openingDate") @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate openingDate,
 		@RequestParam("genre") String genre, @RequestParam("directorName") String directorName,
-		@RequestParam("mainActorName") String mainActorName, @RequestParam("posterFileName") String posterFileName,
+		@RequestParam("mainActorName") String mainActorName, @RequestParam("posterFileName") MultipartFile posterFileName,
 		@RequestParam("audienceNum") String audienceNum, @RequestParam("topic") String topic) {
 			MovieDTO movie = new MovieDTO(title, LocalDate.now(), genre, directorName, mainActorName, posterFileName, audienceNum, topic);
 			movieService.addMovie(movie);

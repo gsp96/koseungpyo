@@ -2,6 +2,8 @@ package koseungpyo.movie.domain;
 
 import java.time.LocalDate;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -13,7 +15,7 @@ public class MovieDTO {
 	private String genre;
 	private String directorName;
 	private String mainActorName;
-	private String posterFileName;
+	private MultipartFile posterFileName;
 	private String audienceNum;
 	private String topic;
 }
