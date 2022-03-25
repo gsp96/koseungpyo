@@ -15,7 +15,7 @@ public class MovieDTO {
 	private String genre;
 	private String directorName;
 	private String mainActorName;
-	private MultipartFile posterFileName;
+	private String posterFileName;
 	private String audienceNum;
 	private String topic;
 }

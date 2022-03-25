@@ -48,12 +48,14 @@ public class AdminController {
 	}
 	
 	@PutMapping("movieRegist")
-	public void movieRegist(@RequestParam("title") String title, 
+	public void movieRegist(@RequestParam(value = "title") String title, 
 		@RequestParam("openingDate") @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate openingDate,
 		@RequestParam("genre") String genre, @RequestParam("directorName") String directorName,
-		@RequestParam("mainActorName") String mainActorName, @RequestParam("posterFileName") MultipartFile posterFileName,
+		@RequestParam("mainActorName") String mainActorName, @RequestParam("posterFile") MultipartFile posterFile,
 		@RequestParam("audienceNum") String audienceNum, @RequestParam("topic") String topic) {
-			MovieDTO movie = new MovieDTO(title, LocalDate.now(), genre, directorName, mainActorName, posterFileName, audienceNum, topic);
+			System.out.println(posterFile.getOriginalFilename());
+			String posterFileName = posterFile.getOriginalFilename();
+			MovieDTO movie = new MovieDTO(title, openingDate, genre, directorName, mainActorName, posterFileName, audienceNum, topic);
 			movieService.addMovie(movie);
 	}
 	
