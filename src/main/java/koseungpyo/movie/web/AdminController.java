@@ -14,12 +14,14 @@ import org.springframework.web.servlet.ModelAndView;
 
 import koseungpyo.movie.domain.MovieDTO;
 import koseungpyo.movie.domain.User;
+import koseungpyo.movie.service.MovieService;
 import koseungpyo.movie.service.UserService;
 
 @RestController("koseungpyo.admin.controller")
 @RequestMapping("admin")
 public class AdminController {
 	@Autowired private UserService userService;
+	@Autowired private MovieService movieService;
 	
 	@GetMapping("user")
 	public ModelAndView adminUser(ModelAndView mv) {
