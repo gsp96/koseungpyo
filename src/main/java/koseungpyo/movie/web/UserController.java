@@ -42,6 +42,13 @@ public class UserController {
 		}
 	}
 	
+	@GetMapping("logout")
+	public ModelAndView logout(HttpSession session, ModelAndView mv) {
+		session.invalidate();
+		mv.setViewName("main");
+		return mv;
+	}
+	
 	@GetMapping("userRegist")
 	public ModelAndView userRegist(ModelAndView mv) {
 		mv.setViewName("user/userRegist");
