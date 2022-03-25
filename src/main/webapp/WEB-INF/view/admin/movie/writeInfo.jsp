@@ -1,4 +1,3 @@
-
 <head>
 <%@ page language='java' contentType='text/html; charset=UTF-8' pageEncoding='UTF-8'%>
     <title>movie regist</title>
@@ -11,6 +10,41 @@
     <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.6.3/css/all.css'/>
     <link rel='stylesheet' href='../../font.css'/>
 </head>
+<script>
+$('#submit').click(() => {
+	let errCnt = 0;
+	errCnt = sizeCheck('#userId', '#errmsg', 10, errCnt)
+	errCnt = sizeCheck('#userPw', '#errmsg2', 10, errCnt)
+	errCnt = sizeCheck('#userName', '#errmsg3', 15, errCnt)
+	errCnt = sizeCheck('#phoneNum', '#errmsg4', 11, errCnt)
+	errCnt = sizeCheck('#email', '#errmsg5',  40, errCnt)
+	if(errCnt == 0) {
+		$('#registModal').modal();
+	}
+});
+
+function isval() {
+	$('#registBtn').click(() => {
+		$.ajax({
+			type:'put',
+			url:'/movie/movieRegist',
+			data:{
+				title: $('#title').val(),
+				openingDate: $('#openingDate').val(),
+				genre: $('#genre').val(),
+				directorName: $('#directorName').val(),
+				mainActorName: $('#mainActorName').val(),
+				posterFileName: $('#posterFileName').val(),
+				audienceNum: $('#audienceNum').val(),
+				topic: $('#topic').val()
+			}
+		})
+		$('form').submit()
+	});
+}
+
+$(init);
+</script>
 <style>
     #errmsg {
         color:red;
@@ -75,7 +109,7 @@
                     
                     <div class='row justify-content-right mt-3'>
                         <div class='col-4'>
-                            <button type='submit' class='btn btn-secondary btn-block'>등록</button>
+                            <button id='registBtn' type='submit' class='btn btn-secondary btn-block'>등록</button>
                         </div>
                     </div>
                 </form>
