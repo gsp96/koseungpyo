@@ -3,20 +3,26 @@ package koseungpyo.movie.web;
 import java.time.LocalDate;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import koseungpyo.movie.domain.Movie;
 import koseungpyo.movie.domain.MovieDTO;
 import koseungpyo.movie.domain.User;
 import koseungpyo.movie.service.MovieService;
 import koseungpyo.movie.service.UserService;
+import spring.web.ch03.ex02.UserDto;
 
 @RestController("koseungpyo.admin.controller")
 @RequestMapping("admin")
@@ -56,4 +62,13 @@ public class AdminController {
 			MovieDTO movie = new MovieDTO(title, LocalDate.now(), genre, directorName, mainActorName, posterFileName, audienceNum, topic);
 			movieService.addMovie(movie);
 	}
+	
+	/*
+	@RequestMapping(value = "/movieInfoList", method=RequestMethod.GET)
+	public String movieInfoList(Model model, @RequestParam("title") String title) {
+	    List<Movie> movieList = movieService.getmovieInfoLists(title);
+	    model.addAttribute("movieList", movieList);
+		return "admin/movie/movieInfoList";
+	}
+	*/
 }
