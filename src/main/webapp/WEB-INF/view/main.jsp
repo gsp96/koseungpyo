@@ -31,14 +31,12 @@
 function checkLogin() {
 	var ssuserId = "<%=(String)session.getAttribute("userId")%>"
 	if(( ssuserId == "admin") && (ssuserId.length > 0)) {
-		$('.login').toggle()
         $('.admin').prepend('<li class="nav-item"><a href="admin">관리자 페이지</a></li>')
-		$('.logout').prepend('<li class="nav-item"><a href="cinemanetwork" >로그아웃</a></li>')
         $('.admin').toggle()
-		$('.logout').toggle()
+		$('.mypage').toggle()
 	} 
 	console.log(ssuserId)
-    else if(( ssuserId != "null") && (ssuserId.length > 0)) {
+    if(( ssuserId != "null") && (ssuserId.length > 0)) {
 	 	$('.login').toggle()
 	 	$('.logout').prepend('<li class="nav-item"><a href="cinemanetwork" >로그아웃</a></li>')
         $('.mypage').prepend('<li class="nav-item"><a href="user/07.html" >마이페이지</a></li>')
@@ -46,7 +44,9 @@ function checkLogin() {
         $('.mypage').toggle()
 	 }
 	$('.logout').click(() => {
-		<% session.invalidate();%>
+		$.ajax({
+			url: 'user/logout'
+		})
 	})
 }
 
