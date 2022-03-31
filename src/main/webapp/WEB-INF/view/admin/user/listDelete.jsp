@@ -15,13 +15,27 @@ function init() {
 	$('#listUserBtn').click(() => {
 		$(listUsers);
 	})
+	$('#delMemberBtn').click(() => {
+		if(isVal($('#userNum:checked'))) {
+			$('#modalMsg').text('이 유저를 삭제하시겠습니까?')
+			$('#modalBtn').show()
+			$('#delUserModal').modal()
+		}
+	})
+	$('#delMemberOkBtn').click(() =>{
+		$('#delUserModal').modal('hide')
+		$.ajax({
+			url: 'user/del/' + $('#userNum:checked').val(),
+			method: 'delete'
+		}).done(listUsers)
+	})
 }
 
 function isVal(field) {  //parameter를 field로 넘기기
 	let isGood = false
 	let errMsg
 
-	if(!field.length) errMsg = '노동자를 선택하세요.' //radio에 체크가 되있는지 확인
+	if(!field.length) errMsg = '회원을 선택하세요.' //radio에 체크가 되있는지 확인
 	else {
 		if(!field.val()) errMsg = field.attr('placeholder') + '를 입력하세요.'  //빈칸이 없는지 확인
 		else isGood = true
@@ -150,7 +164,7 @@ $(init);
 
 </body>
 <hr>
-<div id='delMemberModal' class='modal fade' tabindex='-1'>
+<div id='delUserModal' class='modal fade' tabindex='-1'>
 	<div class='modal-dialog'>
 		<div class='modal-content'>
 			<div class='modal-header'>
@@ -159,11 +173,11 @@ $(init);
 				</button>
 			</div>
 			<div class='modal-body'>
-				<p>멤버를 삭제하시겠습니까?</p>
+				<p id='modalMsg'></p>
 			</div>
 			<div class='modal-footer'>
-				<button type='button' class='btn btn-secondary' data-dismiss='modal'>아니오</button>
-				<button type='button' class='btn btn-primary' id='delMemberOkBtn'>예</button>
+				<button type='button' class='btn btn-secondary' id='modalBtn' data-dismiss='modal'>아니오</button>
+				<button type='button' class='btn btn-primary' id='delMemberOkBtn'>확인</button>
 			</div>
 		</div>
 	</div>

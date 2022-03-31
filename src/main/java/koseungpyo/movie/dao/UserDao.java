@@ -11,6 +11,7 @@ import koseungpyo.movie.domain.UserDTO;
 public interface UserDao {
 	List<User> selectUsers();
 	User selectUser(String userId, String pw);
+	User selectUser(int userNum);
 	void insertUser(UserDTO user);
 	void updateUser(User user);
 	void deleteUser(int userNum);

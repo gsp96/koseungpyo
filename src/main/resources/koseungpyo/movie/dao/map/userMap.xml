@@ -14,6 +14,12 @@
 		where user_id = #{userId} and pw = #{pw}
 	</select>
 	
+	<select id='selectUser2' resultType='user'>
+		select *
+		from users
+		where user_num = #{userNum}
+	</select>
+	
 	<select id='checkUserId' resultType='user'>
 		select *
 		from users

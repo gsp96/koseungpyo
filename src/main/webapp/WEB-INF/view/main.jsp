@@ -30,16 +30,18 @@
 
 function checkLogin() {
 	var ssuserId = "<%=(String)session.getAttribute("userId")%>"
+	var ssuserNum = "<%=(Number)session.getAttribute("userNum")%>"
 	if(( ssuserId == "admin") && (ssuserId.length > 0)) {
         $('.admin').prepend('<li class="nav-item"><a href="admin">관리자 페이지</a></li>')
         $('.admin').toggle()
 		$('.mypage').toggle()
 	} 
-	console.log(ssuserId)
+	console.log(ssuserId);
+	console.log(ssuserNum);
     if(( ssuserId != "null") && (ssuserId.length > 0)) {
 	 	$('.login').toggle()
 	 	$('.logout').prepend('<li class="nav-item"><a href="cinemanetwork" >로그아웃</a></li>')
-        $('.mypage').prepend('<li class="nav-item"><a href="user/07.html" >마이페이지</a></li>')
+        $('.mypage').prepend('<li class="nav-item"><a href="user/myPage" >마이페이지</a></li>')
 	 	$('.logout').toggle()
         $('.mypage').toggle()
 	 }
@@ -157,13 +159,13 @@ $(() => {
                     <a class="nav-link login" href="user/loginView">로그인</a>
                   </li>
                 <li class="nav-item active">
-                    <a class="nav-link admin" href="admin/main.html" style='display:none'></a>
+                    <a class="nav-link admin" href="admin" style='display:none'></a>
                 </li>
                 <li class="nav-item active">
                     <a class="nav-link logout" href="main.html" style='display:none'></a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link mypage" href="user/07.html" style='display:none'></a>
+                    <a class="nav-link mypage" href="user/myPage" style='display:none'></a>
                 </li>
               </ul>
               <form class="form-inline my-2 my-lg-0">

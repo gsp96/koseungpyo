@@ -10,6 +10,7 @@ import koseungpyo.movie.domain.UserDTO;
 public interface UserService {
 	List<User> getUsers();
 	User getUser(String userId, String pw);
+	User getUser(int userNum);
 	void addUser(UserDTO user);
 	void fixUser(User user);
 	void delUser(int userNum);

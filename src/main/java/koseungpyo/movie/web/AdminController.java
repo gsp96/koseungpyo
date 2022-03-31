@@ -5,8 +5,10 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -35,6 +37,11 @@ public class AdminController {
 		return userService.getUsers();
 	}
 	
+	@DeleteMapping("user/del/{userNum}")
+	public void deleteUser(@PathVariable int userNum) {
+		userService.delUser(userNum);
+	}
+	
 	@GetMapping("movieInfoList")
 	public ModelAndView adminMovie(ModelAndView mv) {
 		mv.setViewName("admin/movie/movieInfoList");
@@ -47,24 +54,15 @@ public class AdminController {
 		return mv;
 	}
 	
-	@PutMapping("movieRegist")
-	public void movieRegist(@RequestParam(value = "title") String title, 
+	@PostMapping("movieRegist")
+	public void movieRegist(@RequestParam(value = "title", required = false) String title, 
 		@RequestParam("openingDate") @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate openingDate,
 		@RequestParam("genre") String genre, @RequestParam("directorName") String directorName,
 		@RequestParam("mainActorName") String mainActorName, @RequestParam("posterFile") MultipartFile posterFile,
-		@RequestParam("audienceNum") String audienceNum, @RequestParam("topic") String topic) {
+		@RequestParam(value = "audienceNum", required = false) String audienceNum, @RequestParam(value = "topic", required = false) String topic) {
 			System.out.println(posterFile.getOriginalFilename());
 			String posterFileName = posterFile.getOriginalFilename();
 			MovieDTO movie = new MovieDTO(title, openingDate, genre, directorName, mainActorName, posterFileName, audienceNum, topic);
 			movieService.addMovie(movie);
 	}
-	
-	/*
-	@RequestMapping(value = "/movieInfoList", method=RequestMethod.GET)
-	public String movieInfoList(Model model, @RequestParam("title") String title) {
-	    List<Movie> movieList = movieService.getmovieInfoLists(title);
-	    model.addAttribute("movieList", movieList);
-		return "admin/movie/movieInfoList";
-	}
-	*/
 }

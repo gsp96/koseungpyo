@@ -10,6 +10,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -35,6 +36,7 @@ public class UserController {
 		HttpSession session = request.getSession();
 		User user = userService.getUser(userId, pw);
 		session.setAttribute("userId", user.getUserId());
+		session.setAttribute("userNum", user.getUserNum());
 		if(user.getUserId().equals("admin")) {
 			model.addAttribute("admin",user);
 		}else {
@@ -107,4 +109,28 @@ public class UserController {
 		mv.setViewName("user/findPwResult");
 		return mv;
 	}
+	
+	@GetMapping("myPage")
+	public ModelAndView myPage(ModelAndView mv) {
+		mv.setViewName("user/myPage");
+		return mv;
+	}
+	
+	@PostMapping("myPage")
+	public void myPage( @RequestParam("userNum") int userNum, @RequestParam("userId") String userId, @RequestParam("pw") String pw,
+			@RequestParam("userName") String userName, @RequestParam("birthDate") @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate birthDate, @RequestParam("email") String email, @RequestParam("phoneNum") double phoneNumber) {
+		User user = userService.getUser(userNum);
+		user.setUserId(userId);
+		user.setPw(pw);
+		user.setUserName(userName);
+		user.setBirthDate(birthDate);
+		user.setEmail(email);
+		user.setPhoneNumber(phoneNumber);
+		userService.fixUser(user);
+	}
+	@GetMapping("loadUser")
+	public User loadUser(@RequestParam("userNum") int userNum) {
+		return userService.getUser(userNum);
+	}
+	
 }

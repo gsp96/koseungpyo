@@ -60,4 +60,9 @@ public class UserDaoImpl implements UserDao{
 		}
 		return email;
 	}
+
+	@Override
+	public User selectUser(int userNum) {
+		return userMap.selectUser2(userNum);
+	}
 }

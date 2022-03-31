@@ -58,4 +58,9 @@ public class UserServiceImpl implements UserService{
 	public String findPw(String userId, double phoneNum) {
 		return userDao.findPw(userId, phoneNum);
 	}
+
+	@Override
+	public User getUser(int userNum) {
+		return userDao.selectUser(userNum);
+	}
 }
