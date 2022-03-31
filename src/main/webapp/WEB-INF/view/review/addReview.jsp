@@ -73,22 +73,7 @@ function init() {
 					grade: $('#grade').val(),
 					movieNum: $('#movieNum').val()
 				}
-			}).done(reviews => {
-				$('#modalMsg').text('글이 등록되었습니다.');
-				$('#cofirmModal').modal();
-				$('#noBtn').hide();
-				$('#yesBtn').hide();
-				$('#okBtn').show();
-				$('#okBtn').click(() => {
-					location.href='./listReview'
-				})	
-			})
-		} else {
-			$('#modalMsg').text('리뷰를 입력해 주세요.');
-			$('#cofirmModal').modal();
-			$('#noBtn').hide();
-			$('#yesBtn').hide();
-			$('#okBtn').show();
+			}
 		}
 	})
 	
