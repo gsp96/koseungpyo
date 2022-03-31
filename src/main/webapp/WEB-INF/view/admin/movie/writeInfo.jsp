@@ -23,23 +23,24 @@ $('#submit').click(() => {
 	}
 });
 
-function isval() {
+function init() {
 	$('#registBtn').click(() => {
 		$.ajax({
 			type:'put',
-			url:'/movie/movieRegist',
+			url:'/admin/movieRegist',
 			data:{
 				title: $('#title').val(),
 				openingDate: $('#openingDate').val(),
 				genre: $('#genre').val(),
 				directorName: $('#directorName').val(),
 				mainActorName: $('#mainActorName').val(),
-				posterFileName: $('#posterFileName').val(),
+				posterFile: $('#posterFile').val(),
 				audienceNum: $('#audienceNum').val(),
 				topic: $('#topic').val()
 			}
-		})
-		$('form').submit()
+		}).done(() => {
+			location.href="/admin/movieInfoList";
+		});
 	});
 }
 
@@ -76,40 +77,40 @@ $(init);
     <div class='container'>
         <div class='row'>
             <div class='col'>
-                <form class='form' method='post'>
+                <form class='form' enctype='multipart/form-data'>
                     <div class='form-group mt-1'>
-                        <label for='#movieTitle'>제목</label><input type='text' id='movieTitle'class='text-area form-control' required/>
+                        <label for='#title'>제목</label><input type='text' id='title'class='text-area form-control' required/>
                         <span id='errmsg'>제목을 입력해야 합니다.</span>
                     </div>
                     <div class='form-group mt-1'>
-                        <label for='#movieTitle'>개봉일</label><input type='date' class='form-control' required/>
+                        <label for='#openingDate'>개봉일</label><input type='date' id='openingDate'class='form-control' required/>
                         <span id='errmsg2'>개봉일을 입력해야 합니다.</span>
                     </div>
                     <div class='form-group mt-1'>
-                        <label for='#movieTitle'>장르</label><input type='text' class='form-control textbox' required/>
+                        <label for='#genre'>장르</label><input type='text' id='genre' class='form-control textbox' required/>
                         <span id='errmsg3'>장르를 입력해야 합니다.</span>
                     </div>
                     <div class='form-group mt-1'>
-                        <label for='#movieTitle'>감독</label><input type='text' class='form-control textbox' required/>
+                        <label for='#directorName'>감독</label><input type='text' id='directorName' class='form-control textbox' required/>
                         <span id='errmsg3'>감독을 입력해야 합니다.</span>
                     </div>
                     <div class='form-group mt-1'>
-                        <label for='#movieTitle'>주연</label><input type='text' class='form-control textbox'/>
+                        <label for='#mainActorName'>주연</label><input type='text' id='mainActorName'class='form-control textbox'/>
                     </div>
                     <div class='form-group mt-1'>
-                    <label for="moviePoster">영화 포스터</label>
-                    <input type="file" id="moviePoster" name='moviePoster' accept='image/png, image/jpeg'>
+                    <label for="#posterFile">영화 포스터</label>
+                    <input type="file" id="posterFile" name='posterFile' accept='image/*'>
                     </div>
                     <div class='form-group mt-1'>
-                        <label for='#movieTitle'>관객수</label><input type='number' class='form-control'/>
+                        <label for='#audienceNum'>관객수</label><input id='audienceNum' type='number' class='form-control'/>
                     </div>
                     <div class='form-group mt-1'>
-                        <label for='#movieTitle'>주제</label><input type='text' class='form-control textbox'/>
+                        <label for='#topic'>주제</label><input id='topic' type='text' class='form-control textbox'/>
                     </div> 
                     
                     <div class='row justify-content-right mt-3'>
                         <div class='col-4'>
-                            <button id='registBtn' type='submit' class='btn btn-secondary btn-block'>등록</button>
+                            <button id='registBtn' type='button' class='btn btn-secondary btn-block'>등록</button>
                         </div>
                     </div>
                 </form>

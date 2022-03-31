@@ -2,6 +2,8 @@ package koseungpyo.movie.domain;
 
 import java.time.LocalDate;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 

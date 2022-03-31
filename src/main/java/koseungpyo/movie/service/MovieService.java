@@ -12,4 +12,5 @@ public interface MovieService {
 	void fixMovie(Movie movie);
 	void delMovie(int movieNum);
 	List<Movie> listMovies();
+	List<Movie> getmovieInfoLists(String title);
 }

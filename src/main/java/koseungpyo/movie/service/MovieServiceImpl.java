@@ -43,4 +43,9 @@ public class MovieServiceImpl implements MovieService{
 	public List<Movie> listMovies() {
 		return movieDao.listMovies();
 	}
+	
+	@Override
+	public List<Movie> getmovieInfoLists(String title) {
+		return movieDao.selectmovieInfoLists();
+	}
 }

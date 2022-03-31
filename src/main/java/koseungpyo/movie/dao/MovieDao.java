@@ -12,4 +12,5 @@ public interface MovieDao {
 	void updateMovie(Movie movie);
 	void deleteMovie(int movieNum);
 	List<Movie> listMovies();
+	List<Movie> selectmovieInfoLists();
 }

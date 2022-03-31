@@ -42,4 +42,9 @@ public class MovieDaoImpl implements MovieDao{
 	public List<Movie> listMovies() {
 		return moviemap.listMovies();
 	}
+	
+	@Override
+	public List<Movie> selectmovieInfoLists() {
+		return moviemap.selectmovieInfoLists();
+	}
 }

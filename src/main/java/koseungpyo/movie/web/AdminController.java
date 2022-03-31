@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import koseungpyo.movie.domain.MovieDTO;
@@ -47,12 +48,23 @@ public class AdminController {
 	}
 	
 	@PutMapping("movieRegist")
-	public void movieRegist(@RequestParam("title") String title, 
+	public void movieRegist(@RequestParam(value = "title") String title, 
 		@RequestParam("openingDate") @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate openingDate,
 		@RequestParam("genre") String genre, @RequestParam("directorName") String directorName,
-		@RequestParam("mainActorName") String mainActorName, @RequestParam("posterFileName") String posterFileName,
+		@RequestParam("mainActorName") String mainActorName, @RequestParam("posterFile") MultipartFile posterFile,
 		@RequestParam("audienceNum") String audienceNum, @RequestParam("topic") String topic) {
-			MovieDTO movie = new MovieDTO(title, LocalDate.now(), genre, directorName, mainActorName, posterFileName, audienceNum, topic);
+			System.out.println(posterFile.getOriginalFilename());
+			String posterFileName = posterFile.getOriginalFilename();
+			MovieDTO movie = new MovieDTO(title, openingDate, genre, directorName, mainActorName, posterFileName, audienceNum, topic);
 			movieService.addMovie(movie);
 	}
+	
+	/*
+	@RequestMapping(value = "/movieInfoList", method=RequestMethod.GET)
+	public String movieInfoList(Model model, @RequestParam("title") String title) {
+	    List<Movie> movieList = movieService.getmovieInfoLists(title);
+	    model.addAttribute("movieList", movieList);
+		return "admin/movie/movieInfoList";
+	}
+	*/
 }
