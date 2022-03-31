@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<!DOCTYPE mapper PUBLIC '-//mybatis.org//DTD Mapper 3.0//EN'
+	'http://mybatis.org/dtd/mybatis-3-mapper.dtd'>
+<mapper namespace='koseungpyo.movie.dao.map.ReviewMap'>
+	<select id='selectReviews' resultType='review'>
+		select   reviews.review_num, reviews.title, users.user_name, movies.title movie_title, reviews.writed_date 
+		from     reviews, users, movies
+		where    reviews.user_num = users.user_num 
+		and      reviews.movie_num = movies.movie_num
+		order by review_num 
+	</select>
+	
+	<select id='selectReview' resultType='review'>
+		select *
+		from reviews
+		where title = #{title}
+	</select>
+	
+	<insert id='insertReview'>
+		insert into reviews(review_num, writed_date, content, title, grade, user_num, movie_num)
+		values (review_num_seq.nextval, sysdate, #{content}, #{title}, #{grade}, #{userNum}, #{movieNum})
+	</insert>
+	
+	<update id='updateReview'>
+		update reviews
+		set content = #{content}, writed_date = #{writedDate}
+		where review_num = #{reviewNum}
+	</update>
+	
+	<delete id='deleteReview'>
+		delete reviews
+		where review_num = #{reviewNum}
+	</delete>
+
+	<select id="countBoard" resultType="int">
+		select count(*) from reviews
+	</select>
+
+	<select id="selectBoard" resultType="review">
+		SELECT * FROM (
+			SELECT ROWNUM RN, A.* FROM (SELECT * FROM reviews ORDER BY SEQ DESC ) A)
+		WHERE RN BETWEEN #{start} AND #{end}
+	</select>
+	
+
+</mapper>
