@@ -23,9 +23,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+
 import koseungpyo.movie.domain.Review;
+import koseungpyo.movie.domain.User;
 import koseungpyo.movie.service.ReviewService;
-import koseungpyo.movie.util.PagingVO;
 
 @Controller 
 @RequestMapping("/review")
@@ -35,6 +36,12 @@ public class ReviewController{
 	@RequestMapping("/listReview")
 	public String listReview() {
 		return "review/listReview";
+	}
+	
+	@ResponseBody
+	@PostMapping("/listReview")
+	public List<Review> getReviews() {
+		return reviewService.getReviews();
 	}
 	
 	@RequestMapping(value = "/selectReview", method=RequestMethod.GET)
@@ -49,23 +56,6 @@ public class ReviewController{
 	public String addReview() {
 		return "review/addReview";
 	}
-
-	@RequestMapping("/fixReview")
-	public String fixReview() {
-		return "review/fixReview";
-	}
-	
-	@ResponseBody
-	@PostMapping("/listReview")
-	public List<Review> getReviews() {
-		return reviewService.getReviews();
-	}
-	
-	@ResponseBody
-	@PutMapping("fixReview/{reviewNum}")
-	public void fixReview(@PathVariable int reviewNum) {
-		reviewService.fixReview(reviewNum);
-	}
 	
 	@ResponseBody
 	@PostMapping("/addReview")
@@ -75,31 +65,21 @@ public class ReviewController{
 		review.setUserNum(userNum);
 		reviewService.addReview(review);
 	}
+
+	@RequestMapping("/fixReview")
+	public String fixReview() {
+		return "review/fixReview";
+	}
 	
+	@ResponseBody
+	@PutMapping("fixReview/{reviewNum}")
+	public void fixReview(@PathVariable int reviewNum) {
+		reviewService.fixReview(reviewNum);
+	}
+			
 	@ResponseBody	
 	@DeleteMapping("del/{reviewNum}")
 	public void delReview(@PathVariable int reviewNum) {
 		reviewService.delReview(reviewNum);
 	}
-	
-	@GetMapping("boardList")
-	public String boardList(PagingVO vo, Model model
-			, @RequestParam(value="nowPage", required=false)String nowPage
-			, @RequestParam(value="cntPerPage", required=false)String cntPerPage) {
-		
-		int total = reviewService.countBoard();
-		if (nowPage == null && cntPerPage == null) {
-			nowPage = "1";
-			cntPerPage = "5";
-		} else if (nowPage == null) {
-			nowPage = "1";
-		} else if (cntPerPage == null) { 
-			cntPerPage = "5";
-		}
-		vo = new PagingVO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
-		model.addAttribute("paging", vo);
-		model.addAttribute("viewAll", reviewService.selectBoard(vo));
-		return "review/listReview";
-	}
-	
 }
