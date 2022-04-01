@@ -59,13 +59,11 @@ public class AdminController {
 	
 	@PostMapping("add")
 	public ModelAndView addMovie(Movie movie, HttpSession session, ModelAndView mv) {
-		int movieNum = (int) session.getAttribute("movieNum");
+		System.out.println(movie);
 		String fileName = movie.getPosterFile().getOriginalFilename();
-
 		saveFile(attachPath + "/" + fileName, movie.getPosterFile());
 		
 		mv.setViewName("redirect:/admin");
-		movie.setMovieNum(movieNum);
 		movie.setPosterFileName(fileName);
 		movieService.addMovie(movie);
 		

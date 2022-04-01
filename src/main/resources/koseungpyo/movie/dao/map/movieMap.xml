@@ -22,7 +22,7 @@
    	</select>
 	
 	<insert id='insertMovie'>
-		insert into movies(movie_num, title, director_name, genre)
+		insert into movies(movie_num, title, opening_date, genre, director_name, main_actor_name, poster_file_name, audience_num, topic)
 		values (movie_number_seq.nextval, #{title}, #{openingDate}, #{genre}, #{directorName},
 				#{mainActorName}, #{posterFileName}, #{audienceNum}, #{topic})
 	</insert>
