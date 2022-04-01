@@ -42,4 +42,9 @@ public class MovieServiceImpl implements MovieService{
 	public void delMovie(int movieNum) {
 		movieDao.deleteMovie(movieNum);
 	}
+	
+	@Override
+	public List<Movie> getAdminMovies() {
+		return movieDao.selectAdminMovies();
+	}
 }

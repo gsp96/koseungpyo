@@ -15,6 +15,11 @@
 		where movie_num = #{movieNum}
 	</select>
 	
+	<select id='selectAdminMovies' resultType='movie'>
+		select * from movies
+		order by movie_num
+	</select>
+	
 	<select id='listMovies' resultType='movie'>
       select *
       from movies
