@@ -21,16 +21,6 @@ public class MovieController {
 		mv.setViewName("movie/genreList");
 		return mv;
 	}
-	@GetMapping("list")
-	   public List<Movie> getMovies() {
-	      return movieService.getMovies();
-	}
-	
-	@GetMapping("genre")
-	public List<Movie> genreList() {
-		movieService.listMovies();
-		return genreList();
-	}
 	
 	@GetMapping("movieInfo")
 	public ModelAndView movieView1(ModelAndView mv) {

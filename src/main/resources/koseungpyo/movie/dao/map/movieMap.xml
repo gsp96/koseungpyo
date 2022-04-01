@@ -22,8 +22,8 @@
    	</select>
 	
 	<insert id='insertMovie'>
-		insert into movies
-		values (movie_number_seq.netval, #{title}, #{openingDate}, #{genre}, #{directorName},
+		insert into movies(movie_num, title, director_name, genre)
+		values (movie_number_seq.nextval, #{title}, #{openingDate}, #{genre}, #{directorName},
 				#{mainActorName}, #{posterFileName}, #{audienceNum}, #{topic})
 	</insert>
 	

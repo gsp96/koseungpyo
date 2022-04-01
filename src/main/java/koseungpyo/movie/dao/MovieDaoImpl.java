@@ -7,44 +7,38 @@ import org.springframework.stereotype.Repository;
 
 import koseungpyo.movie.dao.map.MovieMap;
 import koseungpyo.movie.domain.Movie;
-import koseungpyo.movie.domain.MovieDTO;
 
 @Repository("koseungpyo.dao.movie")
 public class MovieDaoImpl implements MovieDao{
-	@Autowired private MovieMap moviemap;
+	@Autowired private MovieMap movieMap;
 
 	@Override
-	public List<Movie> selectMovies() {
-		return moviemap.selectMovies();
+	public List<Movie> selectMovies(String title) {
+		return movieMap.selectMovies(title);
 	}
 
 	@Override
-	public Movie selectMovie(int movieNum) {
-		return moviemap.selectMovie(movieNum);
+	public Movie selectMovie(Movie movie) {
+		return movieMap.selectMovie(movie);	
 	}
 
 	@Override
-	public void insertMovie(MovieDTO movie) {
-		moviemap.insertMovie(movie);
+	public void insertMovie(Movie movie) {
+		movieMap.insertMovie(movie);
 	}
 
 	@Override
 	public void updateMovie(Movie movie) {
-		moviemap.updateMovie(movie);
+		movieMap.updateMovie(movie);
 	}
 
 	@Override
 	public void deleteMovie(int movieNum) {
-		moviemap.deleteMovie(movieNum);
+		movieMap.deleteMovie(movieNum);
 	}
 
 	@Override
 	public List<Movie> listMovies() {
-		return moviemap.listMovies();
-	}
-	
-	@Override
-	public List<Movie> selectmovieInfoLists() {
-		return moviemap.selectmovieInfoLists();
+		return movieMap.listMovies();
 	}
 }
