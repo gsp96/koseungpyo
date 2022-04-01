@@ -41,4 +41,9 @@ public class MovieDaoImpl implements MovieDao{
 	public List<Movie> listMovies() {
 		return movieMap.listMovies();
 	}
+	
+	@Override
+	public List<Movie> selectAdminMovies() {
+		return movieMap.selectAdminMovies();		
+	}
 }

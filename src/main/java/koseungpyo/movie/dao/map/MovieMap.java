@@ -11,4 +11,5 @@ public interface MovieMap {
 	void updateMovie(Movie movie);
 	void deleteMovie(int movieNum);
 	List<Movie> listMovies();
+	List<Movie> selectAdminMovies();
 }

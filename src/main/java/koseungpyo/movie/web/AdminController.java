@@ -51,6 +51,11 @@ public class AdminController {
 		return mv;
 	}
 	
+	@GetMapping("movieList")
+	public List<Movie> movieList() {
+		return movieService.getAdminMovies();
+	}
+	
 	@GetMapping("movieInfo")
 	public ModelAndView adminMovie1(ModelAndView mv) {
 		mv.setViewName("admin/movie/writeInfo");

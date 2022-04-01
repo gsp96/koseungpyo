@@ -11,84 +11,33 @@
     <link rel='stylesheet' href='../../font.css'/>
 </head>
 <script>
-    function isVal(field) { //파라미터 필드를 넘겨준다.
-   let isGood = false
-   let errMsg
-   
-   if(!field.length) errMsg = '영화를 선택하세요.' // radio 선택 했는지 확인.
-   else {
-      if(!field.val()) errMsg = field.attr('placeholder') + ' 입력하세요.' // .
-      else isGood = true
-   }
-   
-   if(!isGood) { // err msg를 띄운다.
-      $('#modalMsg').text(errMsg).css('color', 'red')
-      $('#modalBtn').hide()
-      $('#modal').modal()
-   }
-   
-   return isGood
+function listMovies() {
+	$('#Movie').empty()
+	$.ajax({
+		url: '/admin/movieList'
+	}).done(Movies => {
+		if(Movies.length) {
+			const movieArr = []
+			
+			$.each(Movies, (i, movie) => {
+				movieArr.unshift(
+					`<tr>
+						<td><input value='\${movie.movieNum}' type='radio' 
+                            name='movieNum' id='movieNum'/></td>
+    					<td>\${movie.movieNum}</td>
+						<td>\${movie.title}</td>
+						<td>\${movie.directorName}</td>
+						<td>\${movie.genre}</td>
+					</tr>`
+				)
+			})
+			
+			$('#movie').append(movieArr.join(''))
+		} else $('#movie').append('<tr><td colspan=5 class=text-center>영화 목록이 없습니다 추가해주세요.</td></tr>')
+	})
 }
 
-function listLaborers() {
-   $('input').not(':radio').val('')
-   $('#movies').empty()
-   
-   $.ajax({
-      url: 'movie/list'
-   }).done(movies => {
-      if(movies.length) { 
-            const laborerArr = []
-   
-            $.each(movies, (i, movie) => {
-               laborerArr.unshift( 
-                  `<tr>
-                     <td><input value='\${movie.movieNum}' type='radio' 
-                                 name='movieNum' id='movieNum'/>
-                     <td>\${movie.movieNum}</td>
-                     <td>\${movie.title}</td>
-                     <td>\${movie.directorName}</td>
-                     <td>\${movie.genre}</td>
-                  </tr>`
-               )   
-            })
-   
-            $('#movies').append(movieArr.join(''))
-         } else $('#movies').append(
-               '<tr><td colspan=5 class=text-center>노동자가 없습니다.</td></tr>')
-   })
-}
-
-function init() {
-   // 영화 추가
-   
-
-     
-   $('#delLaborerBtn').click(() => {
-      if(isVal($('#laborerId:checked'))) {
-         $('#modalMsg').text('노동자를 삭제하시겠습니까?')
-         $('#modalBtn').show()
-         $('#modal').modal()
-      }
-   })
-
-   $('#delLaborerOkBtn').click(() => {
-      $('#modal').modal('hide')
-      $.ajax({
-         url: 'laborer/del/' + $('#laborerId:checked').val(),
-         method: 'delete'
-      }).done(listLaborers)
-   })
-   
-   $('#laborers').on({
-      change() {
-         $('#laborerName').val($(this).parent().next().next().text())
-         $('#hireDate').val($(this).parent().parent().next().next().text())
-      }
-   }, '#laborerId')
-}
-
-$(init)
+$(listMovies)
 </script>
 <style>
     .btn:hover{
@@ -146,7 +95,7 @@ $(init)
                         <div class='col'>
                             <nav class='d-flex'>
                                 <button type='button' class='btn flex-fill border' id='searchMovieBtn'>
-                                    <span class='label  d-md-inline'>조회</span>
+                                    <span class='label  d-md-inline'>검색</span>
                                 </button>
                                 <button type='button' class='btn flex-fill border' id='fixMovieBtn'>
                                     <span class='label  d-md-inline'>수정</span>
@@ -162,12 +111,20 @@ $(init)
                         </div>
                     </div>
                     
-                    <div class='row'>
+                    <div class='row form'>
                         <div class='col'>
                             <table class='table table-bordered' id='BoardTable'>
-                                <thead><tr><th></th><th>NO</th><th>제목</th><th>감독</th><th>장르</th></tr></thead>
-                                <tbody>
-                                    <tr><td colspan='5' class='text-center'>등록된 영화가 없습니다</td></tr>
+                                <thead>
+	                                <tr>
+		                                <th></th>
+		                                <th>NO</th>
+		                                <th>제목</th>
+		                                <th>감독</th>
+		                                <th>장르</th>
+	                                </tr>
+                                </thead>
+                                <tbody id='movie' class='col'>
+                                	
                                 </tbody>
                             </table>
                         </div>
