@@ -80,6 +80,12 @@ public class AdminController {
 			file.transferTo(new File(fileName));
 		} catch(IOException e) {}
 	}
+	
+	@DeleteMapping("del/{movieNum}") 
+	   public void delMovie(@PathVariable int movieNum) {
+	      movieService.delMovie(movieNum);
+	}
+	
 	/*
 	@PostMapping("movieRegist")
 	public void movieRegist(@RequestParam(value = "title") String title, 

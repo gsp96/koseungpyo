@@ -36,8 +36,26 @@ function listMovies() {
 		} else $('#movie').append('<tr><td colspan=5 class=text-center>영화 목록이 없습니다 추가해주세요.</td></tr>')
 	})
 }
-
 $(listMovies)
+
+function init() {
+	$('#delMovieBtn').click(() => {
+	      if(isVal($('#movieNum:checked'))) {
+	         $('#modalMsg').text('영화를 삭제하시겠습니까?')
+	         $('#modalBtn').show()
+	         $('#delMovieModal').modal()
+	}
+	})
+
+	$('#delMovieOkBtn').click(() => {
+	   $('#delMovieModal').modal('hide')
+	   $.ajax({
+	      url: '/admin/del/' + $('#movieNum:checked').val(),
+	      method: 'delete'
+	   }).done(listMovies)
+	})
+}
+$(init)
 </script>
 <style>
     .btn:hover{
@@ -145,11 +163,11 @@ $(listMovies)
 				</button>
 			</div>
 			<div class='modal-body'>
-				<p>영화를 삭제하시겠습니까?</p>
+				<p id='modalMsg'></p>
 			</div>
-			<div class='modal-footer'>
+			<div class='modal-footer' id='modalBtn'>
 				<button type='button' class='btn btn-secondary' data-dismiss='modal'>아니오</button>
-				<button type='button' class='btn btn-primary' data-dismiss='modal' id='delMovieOkBtn'>예</button>
+				<button type='button' class='btn btn-primary' id='delMovieOkBtn'>예</button>
 			</div>
 		</div>
 	</div>
@@ -160,13 +178,13 @@ $(listMovies)
         <div class='col'>
             <p class=''>문의 : <a href="https://https://is.ezenac.co.kr/" data-toggle='tooltip'>https://is.ezenac.co.kr/</a> </p>
             <p class='text'>
-                사업장주소 : 경기도 고양시 일산동구 장항동 890-4 마두법조빌딩 9F 10414 호스팅서비스사업자 : 이젠컴퓨터학원(주) 대표번호 : 031-994-8881 개발 문의 : 1577-0000 영화 문의 : 1588-1111</p>
-
-                본 사이트에서 사용되는 이미지 중에는 등록된 개별 저작권 이미지가 포함되어 있습니다.
-
-                개별 저작권 이미지의 경우 씨네마 네트워크(주)는 중개업자로서 저작권 소유자가 아니므로, 거래정보 및 거래 등에 사용하지 않습니다.
-
-                본 사이트의 컨텐츠는 저작권법의 보호를 받는 바 무단 전재, 복사, 배포 등을 금합니다.
+	                사업장주소 : 경기도 고양시 일산동구 장항동 890-4 마두법조빌딩 9F 10414 호스팅서비스사업자 : 이젠컴퓨터학원(주) 대표번호 : 031-994-8881 개발 문의 : 1577-0000 영화 문의 : 1588-1111</p>
+	
+	                본 사이트에서 사용되는 이미지 중에는 등록된 개별 저작권 이미지가 포함되어 있습니다.
+	
+	                개별 저작권 이미지의 경우 씨네마 네트워크(주)는 중개업자로서 저작권 소유자가 아니므로, 거래정보 및 거래 등에 사용하지 않습니다.
+	
+	                본 사이트의 컨텐츠는 저작권법의 보호를 받는 바 무단 전재, 복사, 배포 등을 금합니다.
             </p>
         </div>
     </div>
