@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import koseungpyo.movie.dao.map.MovieMap;
 import koseungpyo.movie.domain.Movie;
+import koseungpyo.movie.domain.User;
 
 @Repository("koseungpyo.dao.movie")
 public class MovieDaoImpl implements MovieDao{
@@ -45,5 +46,10 @@ public class MovieDaoImpl implements MovieDao{
 	@Override
 	public List<Movie> selectAdminMovies() {
 		return movieMap.selectAdminMovies();		
+	}
+	
+	@Override
+	public Movie selectMovie(int movieNum) {
+		return movieMap.selectMovie(movieNum);
 	}
 }

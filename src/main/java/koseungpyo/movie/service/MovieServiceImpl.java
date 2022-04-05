@@ -8,6 +8,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import koseungpyo.movie.dao.MovieDao;
 import koseungpyo.movie.domain.Movie;
+import koseungpyo.movie.domain.User;
 
 
 @Service("koseungpyo.service.movie")
@@ -46,5 +47,10 @@ public class MovieServiceImpl implements MovieService{
 	@Override
 	public List<Movie> getAdminMovies() {
 		return movieDao.selectAdminMovies();
+	}
+	
+	@Override
+	public Movie getMovie(int movieNum) {
+		return movieDao.selectMovie(movieNum);
 	}
 }

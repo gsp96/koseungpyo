@@ -11,7 +11,51 @@
     <link rel='stylesheet' href='../../font.css'/>
 </head>
 <<script>
-
+	var ssmovieNum = "<%=(Number)session.getAttribute("movieNum")%>"
+	function init() {
+		$.ajax({
+			url:'/admin/loadMovie',
+			data:{ movieNum: ssmovieNum
+		}
+		}).done(movie => {
+			console.log(movie);
+			$('#title').val(movie.title);
+			$('#openingDate').val(movie.openingDate);
+			$('#genre').val(movie.genre);
+			$('#directorName').val(movie.directorName);
+			$('#mainActorName').val(movie.mainActorName);
+			$('#posterFileName').val(movie.posterFileName);
+			$('#audienceNum').val(movie.audienceNum);
+			$('#topic').val(movie.topic);
+		})
+		
+		$('#registBtn').click(() => {
+			if(isVal($('#movieNum:checked'))) {
+				$.ajax({
+					url: '/admin/movieModifyInfo',
+					method:'post',
+					data: {
+						movieNum: ssmovieNum,
+						title: $('#title').val(),
+						openingDate: $('#openingDate').val(),
+						genre: $('#genre').val(),
+						directorName: $('#directorName').val(),
+						mainActorName: $('#mainActorName').val(),
+						posterFileName: $('#posterFileName').val(),
+						audienceNum: $('#audienceNum').val(),
+						topic: $('#topic').val(),
+					}
+				}).done((result) => {
+				})
+			}
+		})
+		
+		$('#modalOkBtn').click(() => {
+		location.href='/admin/movieInfoList';
+		})
+	}
+	
+$(init)
 </script>
 <style>
     #errmsg, #errmsg2, #errmsg3 {
@@ -80,3 +124,21 @@
         </div>
     </div>
 </body>
+
+<div id='registModal' class='modal fade' tabindex='-1'>
+	<div class='modal-dialog'>
+		<div class='modal-content'>
+			<div class='modal-header'>
+				<button type='button' class='close' data-dismiss='modal'>
+					<span>&times;</span>
+				</button>
+			</div>
+			<div class='modal-body'>
+				<p>영화 수정이 완료되었습니다.</p>
+			</div>
+			<div class='modal-footer'>
+				<button  id='modalOkBtn'type='button' class='btn btn-secondary' data-dismiss='modal' >확인</button>
+			</div>
+		</div>
+	</div>
+</div>

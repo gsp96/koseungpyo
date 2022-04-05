@@ -11,8 +11,32 @@
     <link rel='stylesheet' href='../../font.css'/>
 </head>
 <script>
+function init() {
+	$('#searchMovieBtn').click(() => {
+		listMovies();
+	})
+	
+	$('#delMovieBtn').click(() => {
+		if(isVal($('#movieNum:checked'))) {
+		   $('#modalMsg').text('영화를 삭제하시겠습니까?')
+		   $('#modalBtn').show()
+		   $('#delMovieModal').modal()
+		}
+	})
+
+	$('#delMovieOkBtn').click(() => {
+		$('#delMovieModal').modal('hide')
+		$.ajax({
+		   url: '/admin/del/' + $('#movieNum:checked').val(),
+		   method: 'delete'
+		}).done(listMovies)
+	})
+}
+
 function listMovies() {
-	$('#Movie').empty()
+	$('input').not(':radio').val('')
+	$('#Movies').empty()
+	
 	$.ajax({
 		url: '/admin/movieList'
 	}).done(Movies => {
@@ -32,29 +56,11 @@ function listMovies() {
 				)
 			})
 			
-			$('#movie').append(movieArr.join(''))
-		} else $('#movie').append('<tr><td colspan=5 class=text-center>영화 목록이 없습니다 추가해주세요.</td></tr>')
+			$('#movies').append(movieArr.join(''))
+		} else $('#movies').append('<tr><td colspan=5 class=text-center>영화 목록이 없습니다 추가해주세요.</td></tr>')
 	})
 }
-$(listMovies)
 
-function init() {
-	$('#delMovieBtn').click(() => {
-	      if(isVal($('#movieNum:checked'))) {
-	         $('#modalMsg').text('영화를 삭제하시겠습니까?')
-	         $('#modalBtn').show()
-	         $('#delMovieModal').modal()
-	}
-	})
-
-	$('#delMovieOkBtn').click(() => {
-	   $('#delMovieModal').modal('hide')
-	   $.ajax({
-	      url: '/admin/del/' + $('#movieNum:checked').val(),
-	      method: 'delete'
-	   }).done(listMovies)
-	})
-}
 $(init)
 </script>
 <style>
@@ -115,7 +121,7 @@ $(init)
                                 <button type='button' class='btn flex-fill border' id='searchMovieBtn'>
                                     <span class='label  d-md-inline'>검색</span>
                                 </button>
-                                <button type='button' class='btn flex-fill border' id='fixMovieBtn'>
+                                <button type='button' class='btn flex-fill border' id='fixMovieBtn' onclick="location.href='../admin/movieModifyInfo'">
                                     <span class='label  d-md-inline'>수정</span>
                                 </button>
                                 <button type='button' class='btn flex-fill border' id='delMovieBtn'
@@ -141,7 +147,7 @@ $(init)
 		                                <th>장르</th>
 	                                </tr>
                                 </thead>
-                                <tbody id='movie' class='col'>
+                                <tbody id='movies' class='col'>
                                 	
                                 </tbody>
                             </table>

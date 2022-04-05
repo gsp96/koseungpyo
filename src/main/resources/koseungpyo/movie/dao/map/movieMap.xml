@@ -6,7 +6,7 @@
 		select *
 		from movies
 		order by movie_num
-		where genre = #{genre}
+		where title = #{title}
 	</select>
 	
 	<select id='selectMovie' resultType='movie'>

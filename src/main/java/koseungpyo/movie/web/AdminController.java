@@ -2,17 +2,20 @@ package koseungpyo.movie.web;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -62,6 +65,12 @@ public class AdminController {
 		return mv;
 	}
 	
+	@GetMapping("movieModifyInfo")
+	public ModelAndView adminMovie2(ModelAndView mv) {
+		mv.setViewName("admin/movie/writeInfo");
+		return mv;
+	}
+	
 	@PostMapping("add")
 	public ModelAndView addMovie(Movie movie, HttpSession session, ModelAndView mv) {
 		System.out.println(movie);
@@ -70,6 +79,38 @@ public class AdminController {
 		
 		mv.setViewName("redirect:/admin");
 		movie.setPosterFileName(fileName);
+		movieService.addMovie(movie);
+		
+		return mv;
+	}
+	
+	@PostMapping("movieModifyInfo")
+	public void myPage( @RequestParam("movieNum") int movieNum, @RequestParam("title") String title,
+			 @RequestParam("openingDate") @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate openingDate, @RequestParam("genre") String genre,
+			@RequestParam("directorName") String directorName, @RequestParam("mainActorName") String mainActorName, @RequestParam("posterFileName") String posterFileName,
+			@RequestParam("audienceNum") String audienceNum, @RequestParam("topic") String topic
+			) {
+				Movie movie = movieService.getMovie(movieNum);
+				movie.setMovieNum(movieNum);
+				movie.setTitle(title);
+				movie.setOpeningDate(openingDate);
+				movie.setGenre(genre);
+				movie.setDirectorName(directorName);
+				movie.setMainActorName(mainActorName);
+				movie.setAudienceNum(audienceNum);
+				movie.setTopic(topic);
+				movieService.fixMovie(movie);
+	}
+	
+	@PostMapping("modify")
+	public ModelAndView modifyMovie(Movie movie, HttpSession session, ModelAndView mv, String title) {
+		System.out.println(movie);
+		String fileName = movie.getPosterFile().getOriginalFilename();
+		saveFile(attachPath + "/" + fileName, movie.getPosterFile());
+		
+		mv.setViewName("redirect:/admin");
+		movie.setPosterFileName(fileName);
+		movie.setTitle(title);
 		movieService.addMovie(movie);
 		
 		return mv;
@@ -84,6 +125,11 @@ public class AdminController {
 	@DeleteMapping("del/{movieNum}") 
 	   public void delMovie(@PathVariable int movieNum) {
 	      movieService.delMovie(movieNum);
+	}
+	
+	@GetMapping("loadMovie")
+	public Movie loadMovie(@RequestParam("movieNum") int movieNum) {
+		return movieService.getMovie(movieNum);
 	}
 	
 	/*
