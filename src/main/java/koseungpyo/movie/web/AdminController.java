@@ -85,7 +85,7 @@ public class AdminController {
 	}
 	
 	@PostMapping("movieModifyInfo")
-	public void myPage( @RequestParam("movieNum") int movieNum, @RequestParam("title") String title,
+	public void movieModifyInfo ( @RequestParam("movieNum") int movieNum, @RequestParam("title") String title,
 			 @RequestParam("openingDate") @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate openingDate, @RequestParam("genre") String genre,
 			@RequestParam("directorName") String directorName, @RequestParam("mainActorName") String mainActorName, @RequestParam("posterFileName") String posterFileName,
 			@RequestParam("audienceNum") String audienceNum, @RequestParam("topic") String topic
