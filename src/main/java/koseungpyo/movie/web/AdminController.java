@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -132,27 +133,9 @@ public class AdminController {
 		return movieService.getMovie(movieNum);
 	}
 	
-	/*
-	@PostMapping("movieRegist")
-	public void movieRegist(@RequestParam(value = "title") String title, 
-		@RequestParam("openingDate") @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate openingDate,
-		@RequestParam("genre") String genre, @RequestParam("directorName") String directorName,
-		@RequestParam("mainActorName") String mainActorName, @RequestParam("posterFile") MultipartFile posterFile,
-		@RequestParam("audienceNum") String audienceNum, @RequestParam("topic") String topic) {
-			System.out.println(posterFile.getOriginalFilename());
-			String posterFileName = posterFile.getOriginalFilename();
-			Movie movie = new Movie(title, openingDate, genre, directorName, mainActorName, posterFile, audienceNum, topic);
-			movieService.addMovie(movie);
+	@GetMapping("loadfixMovie")
+	public void loadfixMovie(@RequestParam("movieNum") int movieNum, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		session.setAttribute("movieNum", movieNum);
 	}
-	*/
-	// 
-	
-	/*
-	@RequestMapping(value = "/movieInfoList", method=RequestMethod.GET)
-	public String movieInfoList(Model model, @RequestParam("title") String title) {
-	    List<Movie> movieList = movieService.getmovieInfoLists(title);
-	    model.addAttribute("movieList", movieList);
-		return "admin/movie/movieInfoList";
-	}
-	*/
 }

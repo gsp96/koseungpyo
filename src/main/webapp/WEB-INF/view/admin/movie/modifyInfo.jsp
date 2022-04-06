@@ -16,7 +16,7 @@
 		$.ajax({
 			url:'/admin/loadMovie',
 			data:{ movieNum: ssmovieNum
-		}
+			}
 		}).done(movie => {
 			console.log(movie);
 			$('#title').val(movie.title);

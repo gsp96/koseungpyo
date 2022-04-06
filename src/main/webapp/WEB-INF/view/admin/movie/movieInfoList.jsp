@@ -31,6 +31,13 @@ function init() {
 		   method: 'delete'
 		}).done(listMovies)
 	})
+	
+	$('#fixMovieBtn').click(() => {
+		$.ajax({
+			url: '/admin/loadfixMovie',
+			data: $('#movieNum:checked').val()
+		})
+	})
 }
 
 function listMovies() {
