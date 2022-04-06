@@ -13,6 +13,7 @@
 <<script>
 	var ssmovieNum = "<%=(Number)session.getAttribute("movieNum")%>"
 	function init() {
+		console.log(ssmovieNum);
 		$.ajax({
 			url:'/admin/loadMovie',
 			data:{ movieNum: ssmovieNum

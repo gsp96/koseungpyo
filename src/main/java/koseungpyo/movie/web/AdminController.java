@@ -55,6 +55,13 @@ public class AdminController {
 		return mv;
 	}
 	
+	private void saveFile(String fileName, MultipartFile file) {
+		try {
+			file.transferTo(new File(fileName));
+		} catch(IOException e) {}
+	}
+
+	
 	@GetMapping("movieList")
 	public List<Movie> movieList() {
 		return movieService.getAdminMovies();
@@ -117,12 +124,6 @@ public class AdminController {
 		return mv;
 	}
 	
-	private void saveFile(String fileName, MultipartFile file) {
-		try {
-			file.transferTo(new File(fileName));
-		} catch(IOException e) {}
-	}
-	
 	@DeleteMapping("del/{movieNum}") 
 	   public void delMovie(@PathVariable int movieNum) {
 	      movieService.delMovie(movieNum);
@@ -130,7 +131,14 @@ public class AdminController {
 	
 	@GetMapping("loadMovie")
 	public Movie loadMovie(@RequestParam("movieNum") int movieNum) {
+		System.out.println(movieNum);
 		return movieService.getMovie(movieNum);
+	}
+	
+	@GetMapping("fixMovie")
+	public ModelAndView fixMoive(ModelAndView mv) {
+		mv.setViewName("admin/movie/modifyInfo");
+		return mv;
 	}
 	
 	@GetMapping("loadfixMovie")

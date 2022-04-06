@@ -35,7 +35,11 @@ function init() {
 	$('#fixMovieBtn').click(() => {
 		$.ajax({
 			url: '/admin/loadfixMovie',
-			data: $('#movieNum:checked').val()
+			data:{ 
+				movieNum: $('#movieNum:checked').val()
+			}			
+		}).done(() => {
+			location.href='/admin/fixMovie';
 		})
 	})
 }
@@ -128,7 +132,7 @@ $(init)
                                 <button type='button' class='btn flex-fill border' id='searchMovieBtn'>
                                     <span class='label  d-md-inline'>검색</span>
                                 </button>
-                                <button type='button' class='btn flex-fill border' id='fixMovieBtn' onclick="location.href='../admin/movieModifyInfo'">
+                                <button type='button' class='btn flex-fill border' id='fixMovieBtn'>
                                     <span class='label  d-md-inline'>수정</span>
                                 </button>
                                 <button type='button' class='btn flex-fill border' id='delMovieBtn'
