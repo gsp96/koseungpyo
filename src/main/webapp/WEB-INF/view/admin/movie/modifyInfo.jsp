@@ -31,7 +31,6 @@
 		})
 		
 		$('#registBtn').click(() => {
-			if(isVal($('#movieNum:checked'))) {
 				$.ajax({
 					url: '/admin/movieModifyInfo',
 					method:'post',
@@ -48,15 +47,13 @@
 					}
 				}).done((result) => {
 				})
-			}
 		})
-		
 		$('#modalOkBtn').click(() => {
 		location.href='/admin/movieInfoList';
 		})
 	}
 	
-$(init)
+$(init);
 </script>
 <style>
     #errmsg, #errmsg2, #errmsg3 {
@@ -79,7 +76,7 @@ $(init)
     <div class='container'>
         <div class='row'>
             <div class='col'>
-                <form class='form' method='post' action='/admin/add' enctype='multipart/form-data'>
+                <form class='form' method='post' action='/admin/modify' enctype='multipart/form-data'>
                     <div class='form-group mt-1'>
                         <label for='#title'>제목</label><input type='text' id='title' name='title'class='text-area form-control' placeholder='제목' required/>
                         <!-- <span id='errmsg'>제목을 입력해야 합니다.</span> -->

@@ -95,9 +95,8 @@ public class AdminController {
 	@PostMapping("movieModifyInfo")
 	public void movieModifyInfo ( @RequestParam("movieNum") int movieNum, @RequestParam("title") String title,
 			 @RequestParam("openingDate") @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate openingDate, @RequestParam("genre") String genre,
-			@RequestParam("directorName") String directorName, @RequestParam("mainActorName") String mainActorName, @RequestParam("posterFileName") String posterFileName,
-			@RequestParam("audienceNum") String audienceNum, @RequestParam("topic") String topic
-			) {
+			@RequestParam("directorName") String directorName, @RequestParam("mainActorName") String mainActorName, @RequestParam("posterFile") MultipartFile posterFile,
+			@RequestParam("audienceNum") String audienceNum, @RequestParam("topic") String topic) {
 				Movie movie = movieService.getMovie(movieNum);
 				movie.setMovieNum(movieNum);
 				movie.setTitle(title);
@@ -118,9 +117,8 @@ public class AdminController {
 		
 		mv.setViewName("redirect:/admin");
 		movie.setPosterFileName(fileName);
-		movie.setTitle(title);
 		movieService.addMovie(movie);
-		
+
 		return mv;
 	}
 	
@@ -146,4 +144,6 @@ public class AdminController {
 		HttpSession session = request.getSession();
 		session.setAttribute("movieNum", movieNum);
 	}
+	
+
 }
